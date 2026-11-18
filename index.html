@@ -115,7 +115,7 @@
 }
 
 /* ============ TINTAS DE FONDO ============ */
-.ink-bg{position:absolute;inset:-10%;z-index:-2;pointer-events:none;overflow:hidden;
+.ink-bg{position:absolute;inset:-10%;z-index:0;pointer-events:none;overflow:hidden;
   -webkit-mask-image:radial-gradient(78% 58% at 50% 50%,#000 0%,rgba(0,0,0,.55) 58%,transparent 88%);
   mask-image:radial-gradient(78% 58% at 50% 50%,#000 0%,rgba(0,0,0,.55) 58%,transparent 88%)}
 .ink-bg i{position:absolute;inset:0;display:block;background-size:cover;background-position:center;
@@ -132,7 +132,8 @@
   100%{transform:scaleX(-1) translate3d(-4%,2%,0) scale(1.15) rotate(-1.1deg)}
 }
 .sec.has-ink{position:relative;isolation:isolate}
-.sec.has-ink .sec-inner{position:relative;z-index:1}
+.sec.has-ink .sec-inner{position:relative;z-index:2}
+.sec.has-ink .sec-flora{z-index:1}
 .sec.has-ink h2,.sec.has-ink .eyebrow,.sec.has-ink p,.sec.has-ink .itin-ev,.sec.has-ink .itin-time{
   text-shadow:0 1px 8px var(--bg)}
 .sec-dark.has-ink h2,.sec-dark.has-ink .eyebrow,.sec-dark.has-ink p{text-shadow:0 1px 12px rgba(30,6,14,.9)}
@@ -153,13 +154,6 @@
 
 /* ============ FUNDIDO UNIFORME ENTRE SECCIONES ============ */
 .wrap > section,.wrap > footer{isolation:isolate}
-.wrap > section::before,.wrap > footer::before,
-.wrap > section::after,.wrap > footer::after{
-  content:"";position:absolute;left:0;right:0;z-index:-1;pointer-events:none;
-  display:none;
-}
-.wrap > section[data-fade-top]::before,.wrap > footer[data-fade-top]::before{display:block;top:0}
-.wrap > section[data-fade-bot]::after,.wrap > footer[data-fade-bot]::after{display:block;bottom:0}
 
 /* ============ TITULOS METALICOS ============ */
 :root{
@@ -269,18 +263,21 @@ body{
 
 /* ============ LAYOUT ============ */
 .wrap{max-width:440px;margin:0 auto;overflow:clip;position:relative;z-index:2;visibility:hidden}
-h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.015em;line-height:1.12;color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.015em;line-height:1.14;color:var(--ink);text-wrap:balance}
+.sec h2{margin-bottom:10px}
+.sec .eyebrow + h2{margin-top:0}
 h1 em,h2 em,h3 em{font-style:italic;font-weight:600;color:var(--gold)}
 .script{font-family:var(--script);font-weight:400;font-size:1.5em;color:var(--gold-deep);letter-spacing:0}
 .italiana{font-family:var(--italiana);font-weight:400;letter-spacing:.02em}
 .eyebrow{
-  font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.55em;
-  text-transform:uppercase;color:var(--gold-deep);padding-left:.55em;
-  margin-bottom:28px;display:inline-block;
+  font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.38em;
+  text-transform:uppercase;color:var(--gold-deep);padding-left:.38em;
+  margin-bottom:26px;display:inline-flex;align-items:center;justify-content:center;
+  gap:12px;max-width:100%;line-height:1.5;text-wrap:balance;
 }
 .eyebrow::before,.eyebrow::after{
-  content:"";display:inline-block;width:28px;height:1px;
-  background:var(--gold);vertical-align:middle;margin:0 12px 4px 0;
+  content:"";display:block;flex:0 0 26px;height:1px;
+  background:var(--gold);margin:0;
 }
 .eyebrow::after{margin:0 0 4px 12px}
 
@@ -315,7 +312,7 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:600;color:var(--gold)}
 /* ============ HERO ============ */
 .hero{
   position:relative;min-height:100vh;min-height:100svh;
-  display:flex;align-items:flex-end;justify-content:center;
+  display:flex;align-items:flex-start;justify-content:center;
   overflow:hidden;isolation:isolate;contain:layout paint;
   background-color:#3A0D1B;
 }
@@ -323,7 +320,7 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:600;color:var(--gold)}
 .hero-bg{position:absolute;inset:0;overflow:hidden}
 .hero-drift{
   position:absolute;inset:0;display:block;
-  background:url('hero.jpg') center top/cover no-repeat;
+  background:url('hero.jpg') center center/cover no-repeat;
   filter:saturate(.92) contrast(1.04) brightness(.84);
   transform:scale(1.06);
   animation:heroDrift 20s ease-in-out infinite alternate;
@@ -337,11 +334,11 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:600;color:var(--gold)}
 .hero-bg-overlay{
   position:absolute;inset:0;z-index:-1;
   background:linear-gradient(180deg,
-    rgba(40,10,20,0) 0%,
-    rgba(40,10,20,0) 42%,
-    rgba(40,10,20,.30) 58%,
-    rgba(40,10,20,.66) 76%,
-    rgba(40,10,20,.86) 100%);
+    rgba(40,10,20,.86) 0%,
+    rgba(40,10,20,.68) 26%,
+    rgba(40,10,20,.32) 46%,
+    rgba(40,10,20,0) 62%,
+    rgba(40,10,20,0) 100%);
 }
 /* viñeta suave */
 .hero-vignette{position:absolute;inset:0;z-index:-1;pointer-events:none;
@@ -383,7 +380,13 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:600;color:var(--gold)}
 .hero-frame-corners::before,.hero-frame-corners::after{content:"";position:absolute;width:24px;height:24px;border:1px solid rgba(120,104,37,.65);}
 .hero-frame-corners::before{top:-7px;right:-7px;border-left:none;border-bottom:none}
 .hero-frame-corners::after{bottom:-7px;left:-7px;border-right:none;border-top:none}
-.hero-content{position:relative;z-index:1;text-align:center;color:#FBF4F2;padding:40px 28px 110px;max-width:420px;will-change:transform,opacity}
+.hero-content{position:relative;z-index:1;text-align:center;color:#FBF4F2;
+  padding:calc(58px + env(safe-area-inset-top)) 28px 40px;max-width:420px;width:100%;
+  will-change:transform,opacity}
+/* nombres en 3 renglones, centrados */
+.hero .hero-name{display:flex;flex-direction:column;align-items:center;gap:2px}
+.hero .hero-name > span{display:block;width:100%;text-align:center}
+.hero .hero-and{margin:2px 0}
 .hero-ornament-top{display:block;margin:0 auto 24px;width:160px;height:auto;opacity:.75}
 .hero-invitation{
   font-family:var(--script);font-weight:400;
@@ -588,7 +591,7 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:600;color:var(--gold)}
 /* ============ DRESS CODE ============ */
 .dress{text-align:center}
 .dress h2{font-size:clamp(32px,8vw,52px);margin-bottom:16px}
-.dress-sub{font-family:var(--script);color:var(--gold-deep);font-size:28px;margin-bottom:36px;line-height:1}
+.dress-sub{font-family:var(--script);color:var(--gold-deep);font-size:28px;margin:12px 0 36px;line-height:1.2}
 .dress-swatches{display:flex;justify-content:center;gap:clamp(14px,4vw,28px);flex-wrap:wrap;margin-bottom:12px}
 .swatch{text-align:center}
 .swatch-c{width:clamp(52px,12vw,72px);height:clamp(52px,12vw,72px);border-radius:50%;margin:0 auto 12px;box-shadow:inset 0 -6px 16px rgba(0,0,0,.15),0 1px 2px rgba(41,40,0,.05),0 8px 22px -8px rgba(41,40,0,.22);border:1px solid var(--hair);position:relative;}
@@ -830,7 +833,7 @@ footer::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;b
 <div class="wrap">
 
   <!-- ════════════════ HERO ════════════════ -->
-  <section class="hero">
+  <section class="hero" data-bot="rgb(255,250,247)">
     <div class="hero-bg-wrap">
       <div class="hero-bg" role="img" aria-label="Valeria y Yuriana"><i class="hero-drift"></i></div>
     </div>
@@ -851,16 +854,12 @@ footer::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;b
           <path d="M75 20 L95 20"/><path d="M105 20 L125 20"/>
         </g>
       </svg>
-      <div class="hero-eyebrow" data-anim="hero-eyebrow">Xalapa · Veracruz</div>
       <p class="hero-wir-heiraten" data-anim="hero-wh">Nos Casamos</p>
       <h1 class="hero-name">
         <span class="hero-name-p" data-split="Valeria"></span>
         <span class="hero-and foil-text foil-d2">&amp;</span>
         <span class="hero-name-l" data-split="Yuriana"></span>
       </h1>
-      <div class="hero-date" data-anim="hero-date">
-        <span>Sábado</span><span class="sep">·</span><span>17 de Abril</span><span class="sep">·</span><span>2027</span>
-      </div>
     </div>
     <div class="hero-scroll" aria-label="Desliza para continuar">Desliza</div>
   </section>
@@ -887,7 +886,7 @@ footer::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;b
   <section id="familias" class="sec section-surface has-ink" style="text-align:center;overflow:hidden">
     <div class="ink-bg" aria-hidden="true"><i style="background-image:url('ink/ink-top.webp');animation-delay:-3s"></i></div>
     <div class="sec-inner">
-      <div class="eyebrow">Con la bendición de Dios y de</div>
+      <div class="eyebrow">Con la bendición de</div>
       <h2>Nos <em class="foil-text foil-d2">Acompañan</em></h2>
 
       <div class="familia-wrap rv" style="margin-top:32px">
@@ -924,7 +923,7 @@ footer::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;b
       <div class="eyebrow">Dónde Celebramos</div>
       <h2>La <em class="foil-text foil-d3">Ubicación</em></h2>
       <p class="loc-venue rv">Gotas de Luna. Jardín</p>
-      <p class="italiana rv" style="margin-top:4px;margin-bottom:32px;color:var(--gold-deep);font-size:15px;letter-spacing:.25em">Xalapa · Veracruz</p>
+      <p class="italiana rv" style="margin-top:10px;margin-bottom:32px;color:var(--gold-deep);font-size:15px;letter-spacing:.25em">Xalapa · Veracruz</p>
 
       <div class="loc-card rv levita">
         <div class="loc-schedule">
@@ -970,7 +969,7 @@ footer::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;b
     <div class="sec-inner">
       <div class="eyebrow">El Programa del Día</div>
       <h2>El <em class="foil-text foil-d4">Itinerario</em></h2>
-      <p class="italiana rv" style="font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:44px;display:block">Sábado 17 de Abril · 2027</p>
+      <p class="italiana rv" style="font-size:14px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-soft);margin-top:14px;margin-bottom:44px;display:block">Sábado 17 de Abril · 2027</p>
 
       <div class="itin-wrap">
         <div class="itin-line" aria-hidden="true"></div>
@@ -1836,7 +1835,7 @@ window.addEventListener('resize',()=>ScrollTrigger.refresh());
 
 // ── FUNDIDO UNIFORME ENTRE SECCIONES ──
 function initSectionFades(){
-  var FADE=170, HERO_FADE=90;
+  var FADE=180;
   var els=Array.prototype.slice.call(document.querySelectorAll('.wrap > section, .wrap > footer'));
   if(!els.length) return;
   var pageBg=getComputedStyle(document.body).backgroundColor;
@@ -1846,53 +1845,55 @@ function initSectionFades(){
     if(!m) return null;
     var v=m[1].split(',').map(function(x){return parseFloat(x)});
     if(v.length>3 && v[3]===0) return null;
-    return [v[0],v[1],v[2]];
+    return [Math.round(v[0]),Math.round(v[1]),Math.round(v[2])];
   }
-  function bgOf(el,side){
+  function own(el){
+    if(el.dataset.ownBg) return parse(el.dataset.ownBg);
+    var c=parse(getComputedStyle(el).backgroundColor)||parse(pageBg)||[255,255,255];
+    el.dataset.ownBg='rgb('+c.join(',')+')';
+    return c;
+  }
+  function edge(el,side){
     var d=el.getAttribute(side==='top'?'data-top':'data-bot');
-    if(d) return parse(d)||parse(pageBg);
-    return parse(getComputedStyle(el).backgroundColor)||parse(pageBg)||[255,255,255];
-  }
-  function mix(a,b){return [(a[0]+b[0])/2,(a[1]+b[1])/2,(a[2]+b[2])/2].map(Math.round)}
-  function grad(c,dir){
-    var st=[];
-    for(var i=0;i<=8;i++){
-      var t=i/8, a=1-(t*t*(3-2*t));
-      st.push('rgba('+c[0]+','+c[1]+','+c[2]+','+a.toFixed(3)+') '+(t*100).toFixed(1)+'%');
-    }
-    return 'linear-gradient(to '+dir+','+st.join(',')+')';
+    return d?parse(d):own(el);
   }
   function rgb(c){return 'rgb('+c[0]+','+c[1]+','+c[2]+')'}
-  function lum(c){return (0.2126*c[0]+0.7152*c[1]+0.0722*c[2])/255}
-
-  // las bandas de foto son el puente de color entre vecinas
-  for(var k=0;k<els.length;k++){
-    if(!els[k].classList.contains('photo-band')) continue;
-    var prev=els[k-1], next=els[k+1];
-    var cA=prev?bgOf(prev,'bot'):bgOf(els[k],'top');
-    var cB=next?bgOf(next,'top'):cA;
-    els[k].style.background='linear-gradient(to bottom,'+rgb(cA)+' 0%,'+rgb(cA)+' 8%,'+rgb(cB)+' 92%,'+rgb(cB)+' 100%)';
-    els[k].setAttribute('data-top',rgb(cA));
-    els[k].setAttribute('data-bot',rgb(cB));
+  function stops(a,b,from,to){
+    // 9 paradas smoothstep entre dos colores, de "from"% a "to"%
+    var out=[];
+    for(var i=0;i<=8;i++){
+      var t=i/8, e=t*t*(3-2*t);
+      var c=[0,1,2].map(function(j){return Math.round(a[j]+(b[j]-a[j])*e)});
+      out.push(rgb(c)+' '+(from+(to-from)*t).toFixed(2)+'%');
+    }
+    return out;
   }
 
-  var st=document.getElementById('fadeStyles')||document.createElement('style');
-  st.id='fadeStyles';
-  var rules=[];
-  for(var i=0;i<els.length-1;i++){
-    var A=els[i],B=els[i+1];
-    if(A.classList.contains('photo-band')||B.classList.contains('photo-band')) continue;
-    var isHero=A.classList.contains('hero');
-    var m=mix(bgOf(A,'bot'),bgOf(B,'top'));
-    var diff=Math.abs(lum(bgOf(A,'bot'))-lum(bgOf(B,'top')));
-    var h=isHero?HERO_FADE:Math.round(FADE-(FADE-80)*Math.min(1,diff*1.6));
-    A.setAttribute('data-fade-bot','');A.setAttribute('data-fade-id',i);
-    B.setAttribute('data-fade-top','');B.setAttribute('data-fade-id2',i);
-    rules.push('.wrap > [data-fade-id="'+i+'"]::after{height:'+h+'px;background:'+grad(m,'top')+'}');
-    rules.push('.wrap > [data-fade-id2="'+i+'"]::before{height:'+h+'px;background:'+grad(m,'bottom')+'}');
+  for(var i=0;i<els.length;i++){
+    var el=els[i];
+    if(el.classList.contains('hero')) continue;
+    var o=own(el);
+    var prev=i>0?edge(els[i-1],'bot'):o;
+    var next=i<els.length-1?edge(els[i+1],'top'):o;
+    var h=el.getBoundingClientRect().height||600;
+    var pct=Math.min(34,(FADE/h)*100);
+
+    if(el.classList.contains('photo-band')){
+      // la banda de foto es el puente: de prev a next en todo su alto
+      el.style.background='linear-gradient(to bottom,'+stops(prev,next,0,100).join(',')+')';
+      el.setAttribute('data-top',rgb(prev));
+      el.setAttribute('data-bot',rgb(next));
+      continue;
+    }
+    var g=[].concat(
+      stops(prev,o,0,pct),
+      [rgb(o)+' '+(100-pct).toFixed(2)+'%'],
+      stops(o,next,100-pct,100)
+    );
+    el.style.background='linear-gradient(to bottom,'+g.join(',')+')';
+    el.setAttribute('data-top',rgb(prev));
+    el.setAttribute('data-bot',rgb(next));
   }
-  st.textContent=rules.join('\n');
-  if(!st.parentNode) document.head.appendChild(st);
 }
 initSectionFades();
 window.addEventListener('load',initSectionFades);
