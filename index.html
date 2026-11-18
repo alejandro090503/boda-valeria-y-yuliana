@@ -105,8 +105,8 @@
 /* velo lateral suave para fundir con el fondo de la pagina */
 .photo-band .pb-inner::after{
   content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(90deg,var(--bg) 0,transparent 9%,transparent 91%,var(--bg) 100%);
-  opacity:.55;
+  background:linear-gradient(90deg,var(--bg) 0,transparent 11%,transparent 89%,var(--bg) 100%);
+  opacity:.35;
 }
 .photo-band .pb-cap{
   position:absolute;left:0;right:0;bottom:26px;z-index:2;text-align:center;line-height:1.5;
@@ -1862,14 +1862,30 @@ function initSectionFades(){
     }
     return 'linear-gradient(to '+dir+','+st.join(',')+')';
   }
+  function rgb(c){return 'rgb('+c[0]+','+c[1]+','+c[2]+')'}
+  function lum(c){return (0.2126*c[0]+0.7152*c[1]+0.0722*c[2])/255}
+
+  // las bandas de foto son el puente de color entre vecinas
+  for(var k=0;k<els.length;k++){
+    if(!els[k].classList.contains('photo-band')) continue;
+    var prev=els[k-1], next=els[k+1];
+    var cA=prev?bgOf(prev,'bot'):bgOf(els[k],'top');
+    var cB=next?bgOf(next,'top'):cA;
+    els[k].style.background='linear-gradient(to bottom,'+rgb(cA)+' 0%,'+rgb(cA)+' 22%,'+rgb(cB)+' 78%,'+rgb(cB)+' 100%)';
+    els[k].setAttribute('data-top',rgb(cA));
+    els[k].setAttribute('data-bot',rgb(cB));
+  }
+
   var st=document.getElementById('fadeStyles')||document.createElement('style');
   st.id='fadeStyles';
   var rules=[];
   for(var i=0;i<els.length-1;i++){
     var A=els[i],B=els[i+1];
+    if(A.classList.contains('photo-band')||B.classList.contains('photo-band')) continue;
     var isHero=A.classList.contains('hero');
-    var h=isHero?HERO_FADE:FADE;
     var m=mix(bgOf(A,'bot'),bgOf(B,'top'));
+    var diff=Math.abs(lum(bgOf(A,'bot'))-lum(bgOf(B,'top')));
+    var h=isHero?HERO_FADE:Math.round(FADE-(FADE-80)*Math.min(1,diff*1.6));
     A.setAttribute('data-fade-bot','');A.setAttribute('data-fade-id',i);
     B.setAttribute('data-fade-top','');B.setAttribute('data-fade-id2',i);
     rules.push('.wrap > [data-fade-id="'+i+'"]::after{height:'+h+'px;background:'+grad(m,'top')+'}');
