@@ -86,8 +86,8 @@
 }
 .photo-band .pb-inner{
   position:relative;width:100%;overflow:hidden;
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 120px,#000 calc(100% - 120px),transparent 100%);
-  mask-image:linear-gradient(to bottom,transparent 0,#000 120px,#000 calc(100% - 120px),transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 155px,#000 calc(100% - 155px),transparent 100%);
+  mask-image:linear-gradient(to bottom,transparent 0,#000 155px,#000 calc(100% - 155px),transparent 100%);
 }
 .photo-band img{
   display:block;width:100%;height:clamp(300px,62vw,420px);
@@ -1871,7 +1871,7 @@ function initSectionFades(){
     var prev=els[k-1], next=els[k+1];
     var cA=prev?bgOf(prev,'bot'):bgOf(els[k],'top');
     var cB=next?bgOf(next,'top'):cA;
-    els[k].style.background='linear-gradient(to bottom,'+rgb(cA)+' 0%,'+rgb(cA)+' 22%,'+rgb(cB)+' 78%,'+rgb(cB)+' 100%)';
+    els[k].style.background='linear-gradient(to bottom,'+rgb(cA)+' 0%,'+rgb(cA)+' 8%,'+rgb(cB)+' 92%,'+rgb(cB)+' 100%)';
     els[k].setAttribute('data-top',rgb(cA));
     els[k].setAttribute('data-bot',rgb(cB));
   }
