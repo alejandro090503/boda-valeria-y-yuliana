@@ -386,7 +386,7 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:600;color:var(--gold)}
 /* nombres en 3 renglones, centrados */
 .hero .hero-name{display:flex;flex-direction:column;align-items:center;gap:2px}
 .hero .hero-name > span{display:block;width:100%;text-align:center}
-.hero .hero-and{margin:2px 0}
+.hero .hero-and{margin:4px 0;font-size:clamp(30px,8.5vw,40px);opacity:.95;text-shadow:0 2px 14px rgba(40,10,20,.5)}
 .hero-ornament-top{display:block;margin:0 auto 24px;width:160px;height:auto;opacity:.75}
 .hero-invitation{
   font-family:var(--script);font-weight:400;
@@ -1200,7 +1200,7 @@ footer::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;b
   </section>
 
   <!-- ════════════════ ÁLBUM COMPARTIDO ════════════════ -->
-  <section id="album" class="sec sec-dark has-ink" style="text-align:center;overflow:hidden">
+  <section id="album" class="sec sec-dark has-ink" data-own="rgb(58,13,27)" style="text-align:center;overflow:hidden">
     <div class="ink-bg is-flip" aria-hidden="true"><i style="background-image:url('ink/ink-hero.webp');animation-delay:-19s"></i></div>
     <div class="sec-inner">
       <div class="eyebrow">Comparte el Momento</div>
@@ -1849,6 +1849,7 @@ function initSectionFades(){
   }
   function own(el){
     if(el.dataset.ownBg) return parse(el.dataset.ownBg);
+    if(el.dataset.own){ el.dataset.ownBg=el.dataset.own; return parse(el.dataset.own); }
     var c=parse(getComputedStyle(el).backgroundColor)||parse(pageBg)||[255,255,255];
     el.dataset.ownBg='rgb('+c.join(',')+')';
     return c;
